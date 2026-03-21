@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selina Janssen Portfolio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #e5dfd3;       
+            --header-bg: #592329;      
+            --sub-header-bar: #471b20; 
+            --border-color: #471b20;   
+            --window-bg: #6f2f36;      
+            --window-bar: #592329;     
+            --scroll-track: #e5dfd3;   
+            --dot-color: #b1bccd;      
+            --image-box-bg: #eab6b2;   
+            --control-dot-bg: #e0d2c8; 
+            --highlight-red: #d92a2a; 
+            
+            --font-main: 'Space Grotesk', sans-serif;
+        }
+
+        html { 
+            scroll-behavior: smooth; 
+            scrollbar-color: var(--highlight-red) var(--scroll-track);
+            scrollbar-width: auto;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-main);
+            color: #ffffff;
+            overflow-x: hidden;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--dot-color) 1.5px, transparent 1.5px);
+            background-size: 25px 25px;
+        }
+
+        /* --- SCROLLBAR --- */
+        ::-webkit-scrollbar { width: 28px; }
+        ::-webkit-scrollbar-track { background: var(--scroll-track); border-left: 3px solid var(--border-color); }
+        ::-webkit-scrollbar-thumb { background-color: var(--highlight-red); border: 3px solid var(--border-color); }
+        
+        ::-webkit-scrollbar-button:single-button:vertical:decrement {
+            height: 28px; background-color: var(--highlight-red); border: 3px solid var(--border-color); border-bottom: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23ffffff'><polygon points='50,20 80,70 20,70'/></svg>");
+            background-size: 14px; background-repeat: no-repeat; background-position: center;
+        }
+        ::-webkit-scrollbar-button:single-button:vertical:increment {
+            height: 28px; background-color: var(--highlight-red); border: 3px solid var(--border-color); border-top: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23ffffff'><polygon points='50,80 20,30 80,30'/></svg>");
+            background-size: 14px; background-repeat: no-repeat; background-position: center;
+        }
+
+        /* --- HEADER --- */
+        .top-header { position: sticky; top: 0; z-index: 1000; width: 100%; }
+        .header-main {
+            background-color: var(--header-bg); height: 45px; display: flex;
+            justify-content: space-between; align-items: center; padding: 0 40px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { text-decoration: none; color: #ffffff; font-size: 1.1rem; font-weight: 500; }
+        .header-sub-bar { background-color: var(--sub-header-bar); height: 25px; border-bottom: 2px solid var(--border-color); }
+
+        /* --- MAIN LAYOUT --- */
+        .main-content {
+            display: grid; 
+            grid-template-columns: 350px 1fr; 
+            gap: 80px; 
+            padding: 40px; 
+            max-width: 1800px; 
+            margin: 0 auto; 
+            min-height: 90vh;
+        }
+
+        /* --- LINKE SPALTE (FIXIERT BEIM SCROLLEN) --- */
+        .left-sidebar { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 20px; 
+            position: sticky; 
+            top: 90px; /* Bleibt unter dem Header kleben */
+            align-self: start; /* CRITICAL: Erlaubt der Spalte das "Kleben" */
+            height: auto;
+            z-index: 10;
+        }
+
+        /* --- WINDOW DESIGN --- */
+        .window {
+            background-color: var(--window-bg); border: 2px solid var(--border-color);
+            box-shadow: 6px 6px 0px var(--border-color); display: flex; flex-direction: column;
+            position: relative; z-index: 1; width: 100%; height: auto;
+            transition: box-shadow 0.2s ease;
+            cursor: grab;
+        }
+        .window:active { cursor: grabbing; }
+        .window:hover { box-shadow: 10px 10px 0px var(--border-color); }
+        .window.dragging {
+            box-shadow: 16px 16px 0px var(--border-color) !important; 
+            opacity: 0.85; transition: none; user-select: none; 
+        }
+        
+        .window-header {
+            background-color: var(--window-bar); height: 30px; border-bottom: 2px solid var(--border-color);
+            display: flex; align-items: center; padding: 0 8px; gap: 6px; user-select: none;
+        }
+
+        .control-dot {
+            width: 14px; height: 14px; background-color: var(--control-dot-bg);
+            border: 2px solid var(--border-color); display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: bold; color: var(--border-color); 
+        }
+        
+        .window-body { padding: 20px; } 
+
+        /* Bild-Fenster: Exakt ans Bild angepasst */
+        .image-window .window-body {
+            padding: 0; /* Kein Innenabstand, damit das Bild bündig abschließt */
+            overflow: hidden;
+            display: flex;
+        }
+        .image-window img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- RECHTE SEITE --- */
+        .right-content { display: flex; flex-direction: column; gap: 30px; }
+        .top-row { display: flex; gap: 30px; }
+        .box-hallo { flex: 1; height: auto; }
+        .slot-top-right { flex: 1.5; display: flex; }
+        .bottom-area { display: grid; grid-template-columns: 1.8fr 1fr; gap: 30px; margin-bottom: 50px; }
+        .bottom-left-col { display: flex; flex-direction: column; gap: 30px; }
+        .slot-about { min-height: 250px; display: flex; }
+        .split-row { display: flex; gap: 30px; }
+        .slot-skills, .slot-sprachen { flex: 1; display: flex; }
+        .bottom-right-col { display: flex; flex-direction: column; }
+        .slot-werdegang { flex-grow: 1; display: flex; }
+
+        /* --- SKILLS --- */
+        .skill-container { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; }
+        .skill-row { display: flex; align-items: center; justify-content: space-between; }
+        .skill-label { width: 40%; font-size: 0.95rem; }
+        .skill-bar { width: 60%; height: 16px; border: 2px solid var(--border-color); background-color: transparent; }
+        .skill-fill { height: 100%; background-color: var(--image-box-bg); border-right: 2px solid var(--border-color); }
+        .tag-container { width: 60%; display: flex; flex-wrap: wrap; gap: 6px; }
+        .tag-pill { background-color: var(--control-dot-bg); color: var(--border-color); border: 2px solid var(--border-color); border-radius: 12px; padding: 2px 10px; font-size: 0.85rem; font-weight: 700; }
+
+        /* --- PROJEKTE --- */
+        .page-section { display: flex; flex-direction: column; gap: 30px; margin-bottom: 80px; }
+        #projekte { scroll-margin-top: 100px; }
+        .project-title { width: fit-content; height: auto; }
+        .align-right { align-self: flex-end; }
+        .project-layout { display: flex; flex-direction: column; gap: 30px; margin-top: 15px; }
+        .project-top-row { display: flex; gap: 30px; }
+        .reverse-row { flex-direction: row-reverse; text-align: right; }
+        .project-img-main {
+            width: 45%; height: 350px; background-color: var(--image-box-bg); border: 4px solid var(--border-color);
+            background-size: cover; background-position: center;
+        }
+        .project-text { flex: 1; font-size: 1.3rem; line-height: 1.6; }
+        .project-bottom-row { display: flex; gap: 30px; justify-content: flex-end; }
+        .reverse-bottom { justify-content: flex-start; }
+        .project-img-sub {
+            width: 300px; height: 200px; background-color: var(--image-box-bg); border: 4px solid var(--border-color);
+            background-size: cover; background-position: center;
+        }
+
+        /* --- BUTTONS --- */
+        .action-btn {
+            background-color: var(--image-box-bg); border: 3px solid var(--border-color);
+            box-shadow: 5px 5px 0px var(--border-color); padding: 12px 20px;
+            font-family: var(--font-main); font-weight: bold; font-size: 1.1rem;
+            cursor: pointer; color: var(--border-color); transition: transform 0.1s, box-shadow 0.1s;
+            text-decoration: none; display: inline-block; text-align: center;
+        }
+        .action-btn:hover { box-shadow: 8px 8px 0px var(--border-color); transform: translate(-2px, -2px); background-color: #f4c7c3; }
+        .action-btn:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0px var(--border-color); }
+        
+        .projects-jump-btn {
+            width: 100%; /* Passt sich der Breite der Sidebar an */
+        }
+
+        .reload-btn { position: fixed; bottom: 30px; left: 40px; z-index: 9999; }
+
+        /* TYPOGRAFIE */
+        h1 { font-size: 3.5rem; font-weight: 700; color: #ffffff; }
+        h2 { font-size: 1.6rem; margin-bottom: 10px; font-weight: 600; color: #ffffff; }
+        h3 { font-size: 1.3rem; font-weight: 600; margin-bottom: 10px; color: #ffffff; }
+        ul { list-style-position: inside; margin-top: 5px; }
+        li { margin-bottom: 5px; font-size: 0.95rem; }
+
+    </style>
+</head>
+<body>
+
+    <header class="top-header">
+        <div class="header-main">
+            <div style="font-weight: 700; font-size: 1.3rem;">Selina Janssen</div>
+            <nav class="nav-links">
+                <a href="#">About Me</a>
+                <a href="#projekte">Projects</a>
+                <a href="#kontakt">Contact</a>
+            </nav>
+        </div>
+        <div class="header-sub-bar"></div>
+    </header>
+
+    <div class="main-content">
+        
+        <div class="left-sidebar">
+            <div class="window portfolio-title-box">
+                <div class="window-header"><div class="control-dot">×</div><div class="control-dot"></div><div class="control-dot"></div></div>
+                <div class="window-body"><h1>Portfolio</h1></div>
+            </div>
+            
+            <div class="window image-window">
+                <div class="window-header"><div class="control-dot">×</div><div class="control-dot"></div><div class="control-dot"></div></div>
+                <div class="window-body">
+                    <img src="assets/20240414_144703.jpg" alt="Selina Janssen" draggable="false">
+                </div>
+            </div>
+            
+            <a href="#projekte" class="action-btn projects-jump-btn">↓ Zu den Projekten</a>
+        </div>
+
+
+        <div class="right-content">
+            <div class="top-row">
+                <div class="window box-hallo">
+                    <div class="window-header"><div class="control-dot"></div><div class="control-dot"></div><div class="control-dot"></div></div>
+                    <div class="window-body">
+                        <h2>Hello, I'm Selina</h2>
+                        <p>I’m an architecture and urban planning student.</p>
+                    </div>
+                </div>
+                
+                <div class="slot slot-top-right">
+                    <div class="window random-window">
+                        <div class="window-header"><div class="control-dot">×</div><div class="control-dot"></div><div class="control-dot"></div></div>
+                        <div class="window-body">
+                            <h2>Prices</h2>
+                            <ul>
+                                <li>ServusZukunft #Hackathon Bau Benediktbeuer - 1. Platz 2023.</li>
+                                <li>NOI HACKATHON Bolzano Maker Space ChallengeXNoi 2023.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-area">
+                <div class="bottom-left-col">
+                    <div class="slot slot-about">
+                        <div class="window random-window">
+                            <div class="window-header"><div class="control-dot">×</div><div class="control-dot"></div><div class="control-dot"></div></div>
+                            <div class="window-body">
+                                <h2>About Me</h2>
+                                <p>I study architecture and urban planning with a strong passion for creative design and art. My working style is shaped by my ability to work well in a team, my confident use of computers, and my strength in solution-oriented thinking. My goal is to continuously deepen my knowledge and, in the long term, work as a surveyor in the construction industry.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-row">
+                        <div class="slot slot-skills">
+                            <div class="window random-window">
+                                <div class="window-header"><div class="control-dot">×</div><div class="control-dot"></div><div class="control-dot"></div></div>
+                                <div class="window-body">
+                                    <h2>Software</h2>
+                                    <div class="skill-container">
+                                        <div class="skill-row"><div class="skill-label">Rhino</div><div class="skill-bar"><div class="skill-fill" style="width: 70%;"></div></div></div>
+                                        <div class="skill-row"><div class="skill-label">Grasshopper</div><div class="skill-bar"><div class="skill-fill" style="width: 40%;"></div></div></div>
+                                        <div class="skill-row"><div class="skill-label">Photoshop</div><div class="skill-bar"><div class="skill-fill" style="width: 40%;"></div></div></div>
+                                        <div class="skill-row"><div class="skill-label">Illustrator</div><div class="skill-bar"><div class="skill-fill" style="width: 75%;"></div></div></div>
+                                        <div class="skill-row"><div class="skill-label">InDesign</div><div class="skill-bar"><div class="skill-fill" style="width: 55%;"></div></div></div>
+                                        <div class="skill-row"><div class="skill-label">Blender</div><div class="skill-bar"><div class="skill-fill" style="width: 65%;"></div></div></div>
+                                        <div class="skill-row"><div class="skill-label">Office</div><div class="skill-bar"><div class="skill-fill" style="width: 65%;"></div></div></div>
+                                        <div class="skill-row"><div class="skill-label">Houdini</div><div class="skill-bar"><div class="skill-fill" style="width: 30%;"></div></div></div>
+                                        <div class="skill-row"><div class="skill-label">Archicad</div><div class="skill-bar"><div class="skill-fill" style="width: 50%;"></div></div></div>
+                                        
+                                        <div class="skill-row" style="margin-top: 8px; align-items: flex-start;">
+                                            <div class="skill-label" style="padding-top: 2px;">Coding</div>
+                                            <div class="tag-container">
+                                                <span class="tag-pill">Python</span>
+                                                <span class="tag-pill">HTML</span>
+                                                <span class="tag-pill">CSS</span>
+                                                <span class="tag-pill">C#</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="slot slot-sprachen">
+                            <div class="window random-window">
+                                <div class="window-header"><div class="control-dot">×</div><div class="control-dot"></div><div class="control-dot"></div></div>
+                                <div class="window-body">
+                                    <h2>Languages</h2>
+                                    <ul><li>German (native)</li><li>English (fluent)</li><li>Spanish (basics)</li><li>Italian (basics)</li></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom-right-col">
+                    <div class="slot slot-werdegang">
+                        <div class="window random-window">
+                            <div class="window-header"><div class="control-dot">×</div><div class="control-dot"></div><div class="control-dot"></div></div>
+                            <div class="window-body">
+                                <h2>Education</h2>
+                                <p><strong>2020-2025:</strong><br>Bachelor’s Degree in Architecture University of Innsbruck (LFU Innsbruck) 2020–2025</p><br>
+                                <p><strong>2025 -:</strong><br>Master’s Degree in Urban Planning (ongoing) RWTH Aachen University</p><br>
+                                <p><strong>2026:</strong><br>Master’s Degree in Architect (ongoing) RWTH Aachen University</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="projekte" class="page-section">
+                <div class="window project-title">
+                    <div class="window-header"><div class="control-dot">×</div><div class="control-dot"></div><div class="control-dot"></div></div>
+                    <div class="window-body" style="padding: 10px 20px;"><h2 style="margin: 0; font-size: 1.3rem;">PROJEKT 01</h2></div>
+                </div>
+                <div class="window" style="height: auto;">
+                    <div class="window-header"><div class="control-dot">×</div><div class="control-dot"></div><div class="control-dot"></div></div>
+                    <div class="window-body">
+                        <h3>Union Station</h3>
+                        <div class="project-layout">
+                            <div class="project-top-row">
+                                <div class="project-img-main"></div>
+                                <p class="project-text">Ein bisschen Text hinzufügen<br>Ein bisschen Text hinzufügen<br></p>
+                            </div>
+                            <div class="project-bottom-row">
+                                <div class="project-img-sub"></div>
+                                <div class="project-img-sub"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="action-btn reload-btn" onclick="location.reload()">↻ Neu laden</button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- 1. RANDOMISIERUNG ---
+            const randomWindows = Array.from(document.querySelectorAll('.random-window'));
+            const slots = document.querySelectorAll('.slot');
+            for (let i = randomWindows.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [randomWindows[i], randomWindows[j]] = [randomWindows[j], randomWindows[i]];
+            }
+            slots.forEach((slot, index) => {
+                if(randomWindows[index]) slot.appendChild(randomWindows[index]);
+            });
+
+            // --- 2. FENSTER VERSCHIEBEN ---
+            const allWindows = document.querySelectorAll('.window');
+            let highestZIndex = 1;
+
+            allWindows.forEach(win => {
+                let isDragging = false;
+                let startX, startY, initialLeft, initialTop;
+
+                win.style.left = '0px';
+                win.style.top = '0px';
+
+                win.addEventListener('mousedown', (e) => {
+                    const targetTag = e.target.tagName.toLowerCase();
+                    const isText = e.target.classList.contains('skill-label') || e.target.classList.contains('project-text') || e.target.classList.contains('tag-pill');
+                    const selectableTags = ['p', 'h1', 'h2', 'h3', 'li', 'strong', 'ul', 'span', 'input', 'textarea'];
+                    
+                    if (e.target.closest('a') || e.target.closest('button') || selectableTags.includes(targetTag) || isText) {
+                        return; 
+                    }
+                    
+                    isDragging = true;
+                    highestZIndex++;
+                    win.style.zIndex = highestZIndex;
+                    win.classList.add('dragging');
+
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    initialLeft = parseInt(win.style.left) || 0;
+                    initialTop = parseInt(win.style.top) || 0;
+
+                    document.addEventListener('mousemove', onMouseMove);
+                    document.addEventListener('mouseup', onMouseUp);
+                });
+
+                function onMouseMove(e) {
+                    if (!isDragging) return;
+                    e.preventDefault(); 
+                    const dx = e.clientX - startX;
+                    const dy = e.clientY - startY;
+                    win.style.left = `${initialLeft + dx}px`;
+                    win.style.top = `${initialTop + dy}px`;
+                }
+
+                function onMouseUp() {
+                    isDragging = false;
+                    win.classList.remove('dragging');
+                    document.removeEventListener('mousemove', onMouseMove);
+                    document.removeEventListener('mouseup', onMouseUp);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
