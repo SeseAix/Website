@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Selina Janssen – Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800&family=Barlow:wght@200;300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:#000;color:#fff;font-family:'Barlow',sans-serif;overflow-x:hidden}
+
+    #hero-scroll{height:250vh;position:relative}
+
+    #hero-sticky{
+      position:sticky;top:0;height:100vh;width:100%;
+      overflow:hidden;z-index:1
+    }
+    #three-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+    .name-tag{
+      position:absolute;top:38px;left:48px;z-index:10;
+      font-family:'Barlow',sans-serif;font-weight:300;
+      font-size:.85rem;letter-spacing:.28em;text-transform:uppercase;
+      color:rgba(255,255,255,.8);pointer-events:none
+    }
+    
+    .hero-title{
+      position:absolute;
+      top:50%;left:50%;
+      transform:translate(-50%, -50%);
+      z-index:10;text-align:center;
+      pointer-events:none;user-select:none;
+      width:100%
+    }
+    
+    .hero-title h1{
+      font-family:'Big Shoulders Display',sans-serif;font-weight:800;
+      font-size:clamp(5rem,15vw,12rem);
+      letter-spacing:.05em;
+      line-height:1;
+      text-transform:uppercase;
+      color: #ffffff;
+    }
+
+    .scroll-hint{
+      position:absolute;bottom:4vh;left:50%;transform:translateX(-50%);
+      z-index:10;display:flex;flex-direction:column;align-items:center;
+      gap:8px;opacity:.4;transition:opacity .8s;
+      animation:bounce 2.4s ease-in-out infinite
+    }
+    .scroll-hint.hidden{opacity:0!important;pointer-events:none}
+    .scroll-hint span{font-family:'Barlow',sans-serif;font-size:.6rem;letter-spacing:.35em;text-transform:uppercase;color:#fff}
+    .scroll-hint svg{width:16px;height:16px;stroke:#fff}
+    @keyframes bounce{
+      0%,100%{transform:translateX(-50%) translateY(0)}
+      50%{transform:translateX(-50%) translateY(9px)}
+    }
+
+    /* ALLGEMEINE KLASSE FÜR FADE-IN EFFEKTE BEIM SCROLLEN */
+    .fade-section {
+      opacity:0;
+      transform:translateY(60px);
+      transition:opacity 1.4s ease,transform 1.4s ease;
+    }
+    .fade-section.visible {
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    /* GENERAL SECTION STYLING */
+    .content-section {
+      position:relative;
+      display:flex;
+      flex-direction: column;
+      align-items:center;
+      justify-content:center;
+      background:#000;
+      z-index:2;
+      padding: 100px 48px;
+    }
+    .content-container{
+      max-width: 1100px;
+      width: 100%;
+    }
+    
+    .section-title {
+      font-family:'Big Shoulders Display',sans-serif;
+      font-weight:800;
+      font-size:clamp(3.5rem,8vw,7rem);
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      color:#fff;
+      margin-bottom: 3rem;
+    }
+
+    /* ABOUT & CONTACT GRID */
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 48px;
+      text-align: left;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      padding-top: 3rem;
+    }
+
+    .grid-col h3 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .grid-col p {
+      font-weight: 300;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Portrait column — same visual weight as Awards / Beyond Architecture text columns */
+    .grid-col-portrait {
+      display: flex;
+      align-items: flex-start;
+    }
+    .portrait-thumb {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      object-position: center 18%;
+      filter: grayscale(1) contrast(1.05);
+      border: 1px solid rgba(255,255,255,0.18);
+      display: block;
+    }
+
+    .skill-list {
+      list-style: none;
+    }
+    .skill-list li {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 0.8rem;
+      line-height: 1.4;
+      letter-spacing: 0.05em;
+    }
+    .skill-list li strong {
+      color: #fff;
+      font-weight: 400;
+    }
+
+    /* PROJECTS & BLOG GRID */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 40px;
+      width: 100%;
+      margin-top: 2rem;
+    }
+
+    .project-card {
+      text-decoration: none;
+      color: #fff;
+      display: block;
+    }
+
+    .project-image {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #111; 
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.5s ease, border-color 0.5s ease;
+    }
+
+    .project-card:hover .project-image {
+      transform: translateY(-8px);
+      border-color: rgba(255,255,255,0.5);
+    }
+
+    /* Für Blog-Karten ohne Bild */
+    .blog-card {
+      padding: 2rem;
+      background: #0a0a0a;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.5s ease, border-color 0.5s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    
+    .project-card:hover .blog-card {
+      transform: translateY(-8px);
+      border-color: rgba(255,255,255,0.5);
+    }
+
+    .project-info {
+      padding-top: 1.2rem;
+      transition: opacity 0.3s ease;
+    }
+
+    .project-info h4 {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+      color: #fff;
+    }
+
+    .project-info p {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* Links in Contact */
+    .contact-link {
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+      padding-bottom: 2px;
+      transition: border-color 0.3s ease;
+    }
+    .contact-link:hover {
+      border-color: #fff;
+    }
+
+  </style>
+</head>
+<body>
+
+<div id="hero-scroll">
+  <section id="hero-sticky">
+    <canvas id="three-canvas"></canvas>
+    <div class="name-tag">Selina Janssen</div>
+    <div class="hero-title"><h1>Portfolio</h1></div>
+    <div class="scroll-hint" id="scrollHint">
+      <span>Scroll</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </div>
+  </section>
+</div>
+
+<section id="about" class="content-section" style="min-height: 100vh;">
+  <div class="content-container fade-section">
+    <h2 class="section-title">About Me</h2>
+    
+    <div class="about-grid">
+      <div class="grid-col">
+        <h3>Background</h3>
+        <p>After successfully completing my Bachelor's degree in Architecture at LFU Innsbruck, I am currently deepening my knowledge through a Master's program in Urban Design and Architecture at RWTH Aachen and LFU Innsbruck.</p>
+        <p>I am fascinated by the interplay between architectural details and the broader urban context. For me, designing spaces means developing sustainable and social identities for the city of tomorrow.</p>
+      </div>
+
+      <div class="grid-col">
+        <h3>Focus</h3>
+        <p>My focus lies at the intersection of precise building design and strategic urban planning. I am particularly interested in sustainable adaptive reuse, the reactivation of urban spaces, and contextual design in alpine regions.</p>
+        <p>Additionally, I am passionate about physical model making and architectural photography as a means to explore spaces both haptically and visually.</p>
+      </div>
+
+      <div class="grid-col">
+        <h3>Tools & Skills</h3>
+        <ul class="skill-list">
+          <li><strong>CAD / 3D:</strong> ArchiCAD · Rhino</li>
+          <li><strong>Visualization:</strong> Blender</li>
+          <li><strong>Adobe CC:</strong> Photoshop · InDesign · Illustrator</li>
+          <li><strong>Urban Design:</strong> QGIS · Urban Space</li>
+          <li><strong>Coding:</strong> HTML · Python</li>
+          <li><strong>Languages:</strong> German (Native) · English · French · Spanish · Italian</li>
+        </ul>
+      </div>
+
+      <div class="grid-col">
+        <h3>Awards</h3>
+        <ul class="skill-list">
+          <li><strong>1st Place</strong><br>ServusZukunft Hackathon Bau Benediktbeuern (2023)</li>
+          <li><strong>Challenge</strong><br>NOI HACKATHON Bolzano Maker Space ChallengeXNoi (2023)</li>
+          <li><strong>2nd Place</strong><br>Urban Design Competition (2026)</li>
+        </ul>
+      </div>
+
+      <div class="grid-col">
+        <h3>Beyond Architecture</h3>
+        <p>Creativity for me goes far beyond architecture and design. Outside of work, I enjoy painting, baking, and perfecting my role as a cinnamon roll connoisseur and occasional chocolate cake destroyer.</p>
+        <p>I also find great inspiration in <strong>traveling</strong> exploring new cultures, different cities, and the unique architecture of unfamiliar places constantly shapes my perspective on design.</p>
+      </div>
+
+      <div class="grid-col grid-col-portrait">
+        <img src="PXL_20260616_181705624.jpg" alt="Selina Janssen" class="portrait-thumb">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="content-section">
+  <div class="content-container fade-section">
+    <h2 class="section-title">Selected Works</h2>
+    
+    <div class="projects-grid">
+      
+      <a href="project1.html" class="project-card">
+        <div class="project-image" style="background-image: url('w940_h528_x470_y264_559434a4b8972d7f.jpg'); background-size: cover; background-position: center;"></div>
+        <div class="project-info">
+          <h4>2nd Place - Urban Design Competition Dormagen
+            
+          </h4>
+          <p>Urban Design / 2026</p>
+        </div>
+      </a>
+
+      <a href="generative-snow-architecture.html" class="project-card">
+        <div class="project-image" style="background-image: url('1_Sw.jpg'); background-size: cover; background-position: center;"></div>
+        <div class="project-info">
+          <h4>Generative Snow Architecture</h4>
+          <p>Bachelor Thesis / 2025</p>
+        </div>
+      </a>
+
+   
+    </div>
+  </div>
+</section>
+
+<section id="blog" class="content-section">
+  <div class="content-container fade-section">
+    <h2 class="section-title">Blog & Insights</h2>
+    
+    <div class="projects-grid">
+      <a href="blog1.html" class="project-card">
+        <div class="blog-card">
+          <div class="project-info" style="padding-top: 0;">
+            <h4>Excursion to Belgrade</h4>
+            <p style="margin-top: 0.5rem; color: rgba(255,255,255,0.8); text-transform: none; letter-spacing: 0;">High-Rise Living Between History and the Future</p>
+          </div>
+          <div class="project-info">
+            <p>Article / Nov 2025</p>
+          </div>
+        </div>
+      </a>
+     
+
+      <a href="blog2.html" class="project-card">
+        <div class="blog-card">
+          <div class="project-info" style="padding-top: 0;">
+            <h4>Aachen Cathedral</h4>
+            <p style="margin-top: 0.5rem; color: rgba(255,255,255,0.8); text-transform: none; letter-spacing: 0;">A look into the history of the Aachen Cathedral </p>
+          </div>
+          <div class="project-info">
+            <p>Article / July 2025</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="blog3.html" class="project-card">
+        <div class="blog-card">
+          <div class="project-info" style="padding-top: 0;">
+            <h4>Hackathon Takeaways</h4>
+            <p style="margin-top: 0.5rem; color: rgba(255,255,255,0.8); text-transform: none; letter-spacing: 0;">Lessons learned about rapid prototyping and teamwork from the Maker Space Challenge.</p>
+          </div>
+          <div class="project-info">
+            <p>Event / Jan 2024</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="content-section" style="padding-bottom: 150px;">
+  <div class="content-container fade-section">
+    <h2 class="section-title">Contact</h2>
+    
+    <div class="about-grid" style="border-top: none; padding-top: 0;">
+      <div class="grid-col">
+        <h3>Let's Collaborate</h3>
+        <p>I am always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Whether you have a specific inquiry or just want to say hello, feel free to reach out.</p>
+        <p style="margin-top: 2rem;">
+          
+        </p>
+      </div>
+
+      <div class="grid-col">
+        <h3>Connect</h3>
+        <ul class="skill-list">
+          <li><a href="https://www.linkedin.com/in/selina-janssen-9a5b8026b" class="contact-link" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+          <li><a href="#" class="contact-link">Instagram ↗</a></li>
+          
+        </ul>
+        
+        <h3 style="margin-top: 3rem;">Location</h3>
+        <p>
+          Innsbruck, Austria<br>
+          Aachen, Germany
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  const canvas = document.getElementById('three-canvas');
+  const W = ()=>window.innerWidth, H = ()=>window.innerHeight;
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(W(), H());
+  renderer.setClearColor(0x000000, 1);
+  const scene  = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x000000, 0.025); 
+  const camera = new THREE.PerspectiveCamera(62, W()/H(), 0.1, 500);
+  camera.position.set(0, 2.5, 18);
+  camera.lookAt(0, 4.5, 0);
+
+  function fade(t){return t*t*t*(t*(t*6-15)+10)}
+  function lerpN(a,b,t){return a+(b-a)*t}
+  function grad2(h,x,y){const u=h<2?x:y,v=h<2?y:x;return(h&1?-u:u)+(h&2?-v:v)}
+  const perm=(()=>{
+    const p=[151,160,137,91,90,15,131,13,201,95,96,53,194,233,7,225,140,36,103,30,69,142,8,99,37,240,21,10,23,190,6,148,247,120,234,75,0,26,197,62,94,252,219,203,117,35,11,32,57,177,33,88,237,149,56,87,174,20,125,136,171,168,68,175,74,165,71,134,139,48,27,166,77,146,158,231,83,111,229,122,60,211,133,230,220,105,92,41,55,46,245,40,244,102,143,54,65,25,63,161,1,216,80,73,209,76,132,187,208,89,18,169,200,196,135,130,116,188,159,86,164,100,109,198,173,186,3,64,52,217,226,250,124,123,5,202,38,147,118,126,255,82,85,212,207,206,59,227,47,16,58,17,182,189,28,42,223,183,170,213,119,248,152,2,44,154,163,70,221,153,101,155,167,43,172,9,129,22,39,253,19,98,108,110,79,113,224,232,178,185,112,104,218,246,97,228,251,34,242,193,238,210,144,12,191,179,162,241,81,51,145,235,249,14,239,107,49,192,214,31,181,199,106,157,184,84,204,176,115,121,50,45,127,4,150,254,138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180];
+    const pp=new Uint8Array(512);for(let i=0;i<512;i++)pp[i]=p[i&255];return pp;
+  })();
+  function perlin(x,y){
+    const xi=Math.floor(x)&255,yi=Math.floor(y)&255;
+    const xf=x-Math.floor(x),yf=y-Math.floor(y);
+    const u=fade(xf),v=fade(yf);
+    const aa=perm[perm[xi]+yi],ab=perm[perm[xi]+yi+1];
+    const ba=perm[perm[xi+1]+yi],bb=perm[perm[xi+1]+yi+1];
+    return lerpN(lerpN(grad2(aa,xf,yf),grad2(ba,xf-1,yf),u),lerpN(grad2(ab,xf,yf-1),grad2(bb,xf-1,yf-1),u),v);
+  }
+  function fbm(x,y,oct=8){
+    let v=0,a=1,f=1,s=0;
+    for(let i=0;i<oct;i++){v+=perlin(x*f,y*f)*a;s+=a;a*=.50;f*=2.1;}
+    return v/s;
+  }
+
+  const SEG_X = 300; const SEG_Z = 300; const TW = 40; const TD = 40;   
+  const geo = new THREE.PlaneGeometry(TW, TD, SEG_X, SEG_Z);
+  geo.rotateX(-Math.PI / 2);
+  const positions = geo.attributes.position;
+  const count = positions.count;
+
+  for(let k = 0; k < count; k++){
+    const x  = positions.getX(k); const z  = positions.getZ(k);
+    const nx = x / TW; const nz = z / TD;
+    let h = fbm(nx*3.5+4.1,  nz*3.5+2.7,  8) * 3.5 + fbm(nx*8.0+9.3,  nz*8.0+6.1,  4) * 1.2;
+    const dx1 = nx, dz1 = nz + 0.05; const d1  = Math.sqrt(dx1*dx1*0.8 + dz1*dz1*1.0);
+    h += Math.max(0, 1 - d1*1.5)**2.5 * 10.0;
+    const dx2 = nx + 0.18, dz2 = nz + 0.08; const d2  = Math.sqrt(dx2*dx2*1.0 + dz2*dz2*1.1);
+    h += Math.max(0, 1 - d2*2.0)**2.2 * 5.0;
+    const dx3 = nx - 0.15, dz3 = nz + 0.02; const d3  = Math.sqrt(dx3*dx3*0.9 + dz3*dz3*1.1);
+    h += Math.max(0, 1 - d3*1.8)**2.0 * 6.0;
+    const ef = Math.max(0, 1 - (Math.abs(nx)*1.8)**3) * Math.max(0, 1 - (Math.abs(nz)*1.8)**3);
+    h *= ef;
+    positions.setY(k, Math.max(-0.5, h));
+  }
+  positions.needsUpdate = true;
+  geo.computeVertexNormals();
+
+  let minH = Infinity, maxH = -Infinity;
+  for(let k=0;k<count;k++){minH=Math.min(minH,positions.getY(k));maxH=Math.max(maxH,positions.getY(k));}
+  const hRange = maxH - minH;
+  const cols = new Float32Array(count * 3);
+  for(let k=0;k<count;k++){
+    const t = (positions.getY(k) - minH) / hRange;
+    const v = 0.2 + Math.pow(t, 1.0) * 0.8; 
+    cols[k*3]=v; cols[k*3+1]=v; cols[k*3+2]=v;
+  }
+  geo.setAttribute('color', new THREE.BufferAttribute(cols, 3));
+
+  const solidMat = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.FrontSide });
+  const solidMesh = new THREE.Mesh(geo, solidMat);
+  solidMesh.position.y = -0.05; 
+
+  const basePointSize = 0.035; 
+  const pointsMat = new THREE.PointsMaterial({ size: basePointSize, vertexColors: true, transparent: true, opacity: 0.9, sizeAttenuation: true });
+  const pointsMesh = new THREE.Points(geo, pointsMat);
+  
+  const group = new THREE.Group();
+  group.add(solidMesh); group.add(pointsMesh); 
+  group.position.set(0, -4.5, 0);
+  scene.add(group);
+
+  let scrollProg  = 0;
+  let masterOpacity = 1;
+
+  function onScroll(){
+    const scrollable = document.getElementById('hero-scroll').offsetHeight - window.innerHeight;
+    scrollProg = Math.min(1, window.scrollY / scrollable);
+    masterOpacity = scrollProg < 0.40 ? 1 : Math.max(0,(1-scrollProg)/0.60);
+    if(scrollProg > 0.03) document.getElementById('scrollHint').classList.add('hidden');
+  }
+
+  let t = 0;
+  function animate(){
+    requestAnimationFrame(animate);
+    t += 0.003;
+    const sway = Math.sin(t * 0.2) * 0.02;
+    group.rotation.y = sway;
+    camera.position.z = 18 - scrollProg * 10; 
+    camera.position.y = 2.5 + Math.sin(t*0.2)*0.1 - (scrollProg * 1.5);
+    camera.lookAt(0, 4.5, 0);
+    pointsMat.opacity = masterOpacity;
+    solidMat.transparent = true;
+    solidMat.opacity = masterOpacity;
+    pointsMat.size = basePointSize + (scrollProg * 0.08);
+    renderer.render(scene, camera);
+  }
+
+  window.addEventListener('resize',()=>{
+    renderer.setSize(W(),H()); camera.aspect = W()/H(); camera.updateProjectionMatrix();
+  },{passive:true});
+  window.addEventListener('scroll', onScroll, {passive:true});
+  animate();
+})();
+
+(function(){
+  const observer = new IntersectionObserver(en=>{
+    en.forEach(e=>{if(e.isIntersecting) e.target.classList.add('visible');});
+  },{threshold:.15});
+  document.querySelectorAll('.fade-section').forEach(el => observer.observe(el));
+})();
+</script>
+</body>
+</html>

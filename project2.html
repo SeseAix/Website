@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Generative Snow Architecture — Selina Janssen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Barlow:wght@200;300;400&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      background:#000;color:#fff;
+      font-family:'Barlow',sans-serif;
+      overflow-x:hidden;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{display:block;width:100%;height:100%;object-fit:cover}
+
+    /* ── TOP NAV ── */
+    header{
+      position:fixed;top:0;left:0;width:100%;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:32px 48px;z-index:50;
+      mix-blend-mode:difference;
+    }
+    .back-link{
+      font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;
+      font-weight:300;color:#fff;display:flex;align-items:center;gap:10px;
+      transition:opacity .3s;
+    }
+    .back-link:hover{opacity:.55}
+    .back-link svg{width:14px;height:14px}
+    .nav-name{
+      font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;
+      font-weight:300;color:#fff;
+    }
+
+    /* ── HERO ── */
+    .project-hero{
+      min-height:100vh;width:100%;
+      display:flex;flex-direction:column;
+      justify-content:center;
+      padding:0 48px;
+      position:relative;
+    }
+    .project-kicker{
+      font-size:.75rem;letter-spacing:.35em;text-transform:uppercase;
+      color:rgba(255,255,255,.4);font-weight:300;margin-bottom:28px;
+    }
+    .project-title{
+      font-family:'Big Shoulders Display',sans-serif;font-weight:800;
+      font-size:clamp(2.6rem,7.5vw,6.5rem);
+      letter-spacing:.02em;line-height:1.02;
+      max-width:1100px;
+      text-transform:uppercase;
+    }
+    .project-meta{
+      display:flex;flex-wrap:wrap;gap:48px;
+      margin-top:56px;
+      border-top:1px solid rgba(255,255,255,.12);
+      padding-top:28px;
+      max-width:900px;
+    }
+    .meta-item{display:flex;flex-direction:column;gap:6px}
+    .meta-label{
+      font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;
+      color:rgba(255,255,255,.35);
+    }
+    .meta-value{font-size:.95rem;font-weight:300;color:rgba(255,255,255,.85)}
+
+    .hero-img{
+      margin-top:64px;width:100%;aspect-ratio:16/9;
+      overflow:hidden;background:#0a0a0a;
+      filter:grayscale(0.1) contrast(1.05);
+    }
+
+    /* ── BODY SECTIONS ── */
+    .project-body{
+      max-width:760px;
+      margin:0 auto;
+      padding:0 48px 10vh;
+    }
+    .body-section{padding-top:14vh}
+    .section-label{
+      font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;
+      color:rgba(255,255,255,.35);margin-bottom:24px;
+    }
+    .section-heading{
+      font-family:'Big Shoulders Display',sans-serif;font-weight:700;
+      font-size:clamp(1.8rem,3.4vw,2.6rem);
+      margin-bottom:28px;line-height:1.15;
+      text-transform:uppercase;letter-spacing:.01em;
+    }
+    .body-text{
+      font-size:1.05rem;line-height:1.85;font-weight:300;
+      color:rgba(255,255,255,.78);
+    }
+    .body-text + .body-text{margin-top:1.4em}
+
+    .img-block{
+      width:100%;overflow:hidden;background:#0a0a0a;margin:48px 0;
+    }
+    .img-block.r-16-9{aspect-ratio:16/9}
+    .img-block.r-4-3{aspect-ratio:4/3}
+    .img-block.r-1-1{aspect-ratio:1}
+    .img-caption{
+      font-size:.72rem;letter-spacing:.1em;color:rgba(255,255,255,.35);
+      margin-top:14px;font-weight:300;line-height:1.5;
+    }
+
+    .img-row{
+      display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:48px 0;
+    }
+    @media (max-width:680px){.img-row{grid-template-columns:1fr}}
+    .img-row .img-block{margin:0}
+
+    /* Full-bleed images break out of the 760px column */
+    .full-bleed{
+      width:100vw;position:relative;left:50%;
+      transform:translateX(-50%);
+      margin:64px 0;background:#0a0a0a;overflow:hidden;
+    }
+    .full-bleed img{width:100%;height:auto;display:block}
+    .full-bleed .img-caption{
+      max-width:760px;margin:14px auto 0;padding:0 48px;
+    }
+
+    /* Smaller in-column images — sit inside the text width, not full width */
+    .inline-img{
+      width:100%;max-width:560px;margin:48px auto;background:#0a0a0a;overflow:hidden;
+    }
+    .inline-img img{width:100%;height:auto;display:block}
+    .inline-img .img-caption{margin-top:14px}
+
+    blockquote{
+      font-family:'Big Shoulders Display',sans-serif;font-weight:700;
+      font-size:clamp(1.4rem,2.6vw,2rem);line-height:1.3;color:#fff;
+      border-left:2px solid rgba(255,255,255,.3);
+      padding-left:28px;margin:56px 0;text-transform:uppercase;
+    }
+
+    .process-list{list-style:none;margin-top:8px}
+    .process-list li{
+      display:flex;gap:20px;padding:22px 0;
+      border-top:1px solid rgba(255,255,255,.1);
+      font-weight:300;font-size:1rem;color:rgba(255,255,255,.78);line-height:1.6;
+    }
+    .process-list li:last-child{border-bottom:1px solid rgba(255,255,255,.1)}
+    .process-num{
+      font-family:'Big Shoulders Display',sans-serif;font-weight:800;
+      color:rgba(255,255,255,.3);font-size:1.3rem;min-width:34px;
+    }
+
+    .layer-tag{
+      display:inline-block;font-size:.68rem;letter-spacing:.22em;
+      text-transform:uppercase;color:#000;background:rgba(255,255,255,.85);
+      padding:5px 12px;border-radius:2px;margin-bottom:18px;font-weight:400;
+    }
+
+    footer{
+      border-top:1px solid rgba(255,255,255,.12);
+      padding:14vh 48px 10vh;text-align:center;
+    }
+    .footer-label{
+      font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;
+      color:rgba(255,255,255,.35);margin-bottom:20px;
+    }
+    .footer-title{
+      font-family:'Big Shoulders Display',sans-serif;font-weight:800;
+      font-size:clamp(2.2rem,6vw,4.5rem);text-transform:uppercase;
+      transition:opacity .3s;
+    }
+    footer a:hover .footer-title{opacity:.6}
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+    Portfolio
+  </a>
+  <span class="nav-name">Selina Janssen</span>
+</header>
+
+<!-- ── HERO ── -->
+<section class="project-hero">
+  <div class="project-kicker">Bachelor's Thesis · Generative Design · Axamer Lizum</div>
+  <h1 class="project-title">Generative Snow Architecture</h1>
+
+  <div class="project-meta">
+    <div class="meta-item">
+      <span class="meta-label">Type</span>
+      <span class="meta-value">Bachelor Thesis</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Focus</span>
+      <span class="meta-value">Climate Data · AI · Alpine Ecology</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Tools</span>
+      <span class="meta-value">Custom AI Models, Generative Algorithms, Satellite Data</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Site</span>
+      <span class="meta-value">Axamer Lizum, Tyrol</span>
+    </div>
+  </div>
+
+  <div class="hero-img"><img src="A structure that sho(31).jpg" alt="Generative terrain study, ridge contour lines and growth pattern simulation"></div>
+</section>
+
+<!-- ── BODY ── -->
+<div class="project-body">
+
+  <div class="body-section">
+    <div class="section-label">Introduction</div>
+    <h2 class="section-heading">A Family Archive, Read Against the Climate</h2>
+    <p class="body-text">
+      Inspired by nostalgic family photographs of skiing, this experimental Bachelor's thesis critically examines the future of winter sports in an era of climate change. Focusing on the Axamer Lizum resort near Innsbruck, our demographic and historical analysis revealed a massive, continuous surge in international tourism.
+    </p>
+    <p class="body-text">
+      Yet our climate mapping exposed a contradictory reality: snow levels are drastically declining. To accommodate the crowds despite the lack of snow, conventional ski infrastructure increasingly excavates the mountain, leaving permanent, devastating scars on the alpine ecosystem.
+    </p>
+  </div>
+
+  <div class="inline-img">
+    <img src="1781965046057-f38aeb72-b170-40d1-86d9-def9f80caec4_2.jpg" alt="Family ski archive, early-to-mid 20th century, Tyrol">
+    <div class="img-caption">Family archive — early winter tourism in Tyrol, the starting point of this research.</div>
+  </div>
+
+  <div class="inline-img">
+    <img src="1781965046057-f38aeb72-b170-40d1-86d9-def9f80caec4_5.jpg" alt="Ski infrastructure development over decades, Axamer Lizum and surroundings">
+    <div class="img-caption">Decades of infrastructure growth — from gondolas to parking lots, tracing the resort's expansion.</div>
+  </div>
+
+  <div class="body-section">
+    <div class="section-label">Climate Mapping</div>
+    <h2 class="section-heading">Reading the Mountain Through Satellite Data</h2>
+    <p class="body-text">
+      To move from anecdote to evidence, we analyzed five years of satellite imagery (2019–2023) across a 50×50 km area around Axamer Lizum — comparing snow index (NDSI), vegetation index (NDVI), and water index (NDWI) year over year, alongside raw satellite and infrared bands.
+    </p>
+  </div>
+
+  <div class="inline-img">
+    <img src="1781965046057-f38aeb72-b170-40d1-86d9-def9f80caec4_17.jpg" alt="NDSI, NDVI, NDWI satellite comparison 2019-2023">
+    <div class="img-caption">NDSI / NDVI / NDWI comparison, 2019–2023 — snow, vegetation, and water indices over the same 50×50 km region.</div>
+  </div>
+
+  <div class="inline-img">
+    <img src="1781965046057-f38aeb72-b170-40d1-86d9-def9f80caec4_16.jpg" alt="Satellite and infrared imagery comparison 2019-2023">
+    <div class="img-caption">Raw satellite and infrared imagery, 2019–2023 — the visible decline in snow cover across five winters.</div>
+  </div>
+
+  <div class="inline-img">
+    <img src="1781965046057-f38aeb72-b170-40d1-86d9-def9f80caec4_22.jpg" alt="Rings of activity life in the mountain, zoned diagram">
+    <div class="img-caption">Rings of activity life in the mountain — mapping top mountain, ski zones, valley, and settlement as concentric layers of human use.</div>
+  </div>
+
+  <blockquote>
+    Conventional ski infrastructure increasingly excavates the mountain — leaving permanent, devastating scars on the alpine ecosystem.
+  </blockquote>
+
+  <div class="body-section">
+    <div class="section-label">Concept</div>
+    <h2 class="section-heading">A Dual-Layered, Zero-Surface-Impact Architecture</h2>
+    <p class="body-text">
+      In response, our project proposes a dual-layered, zero-surface-impact architecture — one strategy for when there is snow, and another for when there isn't.
+    </p>
+  </div>
+
+  <div class="layer-tag">Layer 01 — Winter</div>
+  <div class="body-section" style="padding-top:0">
+    <h2 class="section-heading" style="margin-bottom:18px">Generative Snow Structures</h2>
+    <p class="body-text">
+      The first layer addresses the winter months: by analyzing the microscopic formation of snowflakes, we trained custom AI models and generative algorithms to design ephemeral surface structures. When it snows, the falling snow naturally builds these temporary, sculptural forms, which melt away entirely in the spring without a trace.
+    </p>
+  </div>
+
+  <div class="img-row">
+    <div class="img-block r-1-1"><img src="1781965046057-f38aeb72-b170-40d1-86d9-def9f80caec4_26.jpg" alt="Generative structure variations, voxel growth study"></div>
+    <div class="img-block r-1-1"><img src="1781965046057-f38aeb72-b170-40d1-86d9-def9f80caec4_27.jpg" alt="Generative structure viewed from multiple orientations"></div>
+  </div>
+  <div class="img-caption" style="margin-top:-32px;margin-bottom:48px">
+    Generative growth variations (left) and the same structure read from top, north, west, east, and south (right) — testing how each form behaves under directional snow load.
+  </div>
+
+  <div class="inline-img">
+    <img src="1781965046057-f38aeb72-b170-40d1-86d9-def9f80caec4_27.jpg" alt="Extended set of generative voxel structure variations, eight isometric studies">
+    <div class="img-caption">A broader set of generative outputs from the same algorithm — each variation grown from a different parameter set, testing density, porosity, and structural rhythm.</div>
+  </div>
+
+  <div class="layer-tag">Layer 02 — Snowless Periods</div>
+  <div class="body-section" style="padding-top:0">
+    <h2 class="section-heading" style="margin-bottom:18px">An Underground Network</h2>
+    <p class="body-text">
+      The second layer addresses the increasingly frequent snowless periods. Recognizing that the mountain surface needs to be protected, our design shifts the permanent human footprint underground.
+    </p>
+    <p class="body-text">
+      A network of subterranean tunnels provides a hidden infrastructure where visitors can still navigate and experience the mountain when there is no snow. By moving activity below the surface, the alpine landscape above is left untouched, allowing the fragile ecosystem to recover while still sustaining the region's vital tourism.
+    </p>
+  </div>
+
+  <div class="body-section">
+    <div class="section-label">Process</div>
+    <h2 class="section-heading">From Archive to Algorithm</h2>
+    <ul class="process-list">
+      <li>
+        <span class="process-num">01</span>
+        <span>Collection and reading of family ski archives to trace the social history of Axamer Lizum.</span>
+      </li>
+      <li>
+        <span class="process-num">02</span>
+        <span>Demographic and historical analysis revealing the continuous surge in international tourism.</span>
+      </li>
+      <li>
+        <span class="process-num">03</span>
+        <span>Five-year satellite climate mapping (NDSI, NDVI, NDWI, infrared) exposing the decline in snow cover.</span>
+      </li>
+      <li>
+        <span class="process-num">04</span>
+        <span>Mapping the "rings of activity" — how human use is layered across the mountain, from peak to valley.</span>
+      </li>
+      <li>
+        <span class="process-num">05</span>
+        <span>Microscopic analysis of snowflake formation, translated into training data for custom AI models.</span>
+      </li>
+      <li>
+        <span class="process-num">06</span>
+        <span>Generation and testing of ephemeral structure variations across orientations and snow-load scenarios.</span>
+      </li>
+      <li>
+        <span class="process-num">07</span>
+        <span>Design of a complementary underground tunnel network for snowless periods — zero impact on the surface.</span>
+      </li>
+    </ul>
+  </div>
+
+
+<img src="Layout_selina_alessio_paulin.jpg" alt="Alternative layout study, generative snow architecture, Axamer Lizum" class="full-bleed">
+</div>
+
+<footer>
+  <div class="footer-label">Next Project</div>
+  <a href="index.html">
+    <div class="footer-title">Back to Portfolio</div>
+  </a>
+</footer>
+
+</body>
+</html>
