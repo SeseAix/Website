@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Impressum — Selina Janssen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Barlow:wght@200;300;400&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:#000;color:#fff;font-family:'Barlow',sans-serif;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+
+    header{
+      position:fixed;top:0;left:0;width:100%;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:32px 48px;z-index:50;mix-blend-mode:difference;
+    }
+    .back-link{
+      font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;
+      font-weight:300;color:#fff;display:flex;align-items:center;gap:10px;
+      transition:opacity .3s;
+    }
+    .back-link:hover{opacity:.55}
+    .back-link svg{width:14px;height:14px}
+    .nav-name{font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;font-weight:300;color:#fff}
+
+    .page{max-width:760px;margin:0 auto;padding:22vh 48px 10vh}
+    .page-kicker{
+      font-size:.75rem;letter-spacing:.35em;text-transform:uppercase;
+      color:rgba(255,255,255,.4);font-weight:300;margin-bottom:28px;
+    }
+    .page-title{
+      font-family:'Big Shoulders Display',sans-serif;font-weight:800;
+      font-size:clamp(2.6rem,7vw,5rem);letter-spacing:.02em;line-height:1.02;
+      text-transform:uppercase;margin-bottom:8vh;
+    }
+
+    .block{padding:28px 0;border-top:1px solid rgba(255,255,255,.12)}
+    .block:last-of-type{border-bottom:1px solid rgba(255,255,255,.12)}
+    .block-label{
+      font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;
+      color:rgba(255,255,255,.35);margin-bottom:16px;
+    }
+    .block-text{font-size:1.02rem;line-height:1.85;font-weight:300;color:rgba(255,255,255,.78)}
+    .block-text + .block-text{margin-top:1.2em}
+    .block-text a{border-bottom:1px solid rgba(255,255,255,.3);transition:opacity .3s}
+    .block-text a:hover{opacity:.6}
+
+    footer{border-top:1px solid rgba(255,255,255,.12);padding:14vh 48px 10vh;text-align:center}
+    .footer-label{
+      font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;
+      color:rgba(255,255,255,.35);margin-bottom:20px;
+    }
+    .footer-title{
+      font-family:'Big Shoulders Display',sans-serif;font-weight:800;
+      font-size:clamp(2.2rem,6vw,4.5rem);text-transform:uppercase;transition:opacity .3s;
+    }
+    footer a:hover .footer-title{opacity:.6}
+    @media(max-width:680px){
+      header{padding:24px}
+      .page{padding:18vh 24px 8vh}
+      footer{padding:12vh 24px 8vh}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+    Portfolio
+  </a>
+  <span class="nav-name">Selina Janssen</span>
+</header>
+
+<main class="page">
+  <div class="page-kicker">Rechtliches</div>
+  <h1 class="page-title">Impressum</h1>
+
+  <div class="block">
+    <div class="block-label">Angaben gemäß § 5 DDG</div>
+    <p class="block-text">
+      Selina Janssen<br>
+      Eupenerstraße 111<br>
+      52066 Aachen <br>
+      Deutschland
+    </p>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Kontakt</div>
+    <p class="block-text">
+      E-Mail: <a href="sese37350@gmail.com">sese37350@gmail.com</a><br>
+       
+  </div>
+
+  <div class="block">
+    <div class="block-label">Haftung für Inhalte</div>
+    <p class="block-text">
+      Die Inhalte dieser Seiten wurden mit größtmöglicher Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden. Als Diensteanbieterin bin ich für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.
+    </p>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Haftung für Links</div>
+    <p class="block-text">
+      Diese Website kann Links zu externen Websites Dritter enthalten, auf deren Inhalte ich keinen Einfluss habe. Für diese fremden Inhalte kann ich daher keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber verantwortlich. Bei Bekanntwerden von Rechtsverletzungen werden derartige Links umgehend entfernt.
+    </p>
+  </div>
+
+  <div class="block">
+    <div class="block-label">Urheberrecht</div>
+    <p class="block-text">
+      Die auf dieser Website veröffentlichten Inhalte, Texte, Pläne, Zeichnungen und Bilder unterliegen dem deutschen Urheberrecht. Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung der jeweiligen Urheberin bzw. des jeweiligen Urhebers.
+    </p>
+    <p class="block-text">
+      Einzelne Abbildungen wurden mit Hilfe von KI erstellt und sind entsprechend gekennzeichnet. Einige Projekte sind in Gruppenarbeit entstanden; die jeweiligen Mitwirkenden sind am Projekt genannt.
+    </p>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-label">Back</div>
+  <a href="index.html">
+    <div class="footer-title">Portfolio</div>
+  </a>
+</footer>
+
+</body>
+</html>

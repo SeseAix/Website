@@ -233,6 +233,24 @@
       border-color: #fff;
     }
 
+    /* SITE FOOTER (Impressum) */
+    .site-footer{
+      position:relative;z-index:2;background:#000;
+      border-top:1px solid rgba(255,255,255,0.12);
+      padding:32px 48px;
+      display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+    }
+    .site-footer span,
+    .site-footer a{
+      font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;
+      font-weight:300;color:rgba(255,255,255,.45);
+      text-decoration:none;transition:color .3s ease;
+    }
+    .site-footer a:hover{color:#fff}
+    @media(max-width:680px){
+      .site-footer{padding:28px 24px}
+    }
+
   </style>
 </head>
 <body>
@@ -414,6 +432,11 @@
     </div>
   </div>
 </section>
+
+<footer class="site-footer">
+  <span>© Selina Janssen</span>
+  <a href="impressum.html">Impressum</a>
+</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
