@@ -69,11 +69,13 @@
     }
     .meta-value{font-size:.95rem;font-weight:300;color:rgba(255,255,255,.85)}
 
+    /* Hero image: full width, no aspect-ratio crop — shows the whole image */
     .hero-img{
-      margin-top:64px;width:100%;aspect-ratio:16/9;
+      margin-top:64px;width:100%;
       overflow:hidden;background:#0a0a0a;
       filter:grayscale(0.1) contrast(1.05);
     }
+    .hero-img img{width:100%;height:auto;display:block}
 
     /* ── BODY SECTIONS ── */
     .project-body{
@@ -128,10 +130,19 @@
 
     /* Smaller in-column images — sit inside the text width, not full width */
     .inline-img{
-      width:100%;max-width:560px;margin:48px auto;background:#0a0a0a;overflow:hidden;
+      width:100%;max-width:560px;margin:48px auto;background:#0a0a0a;
     }
     .inline-img img{width:100%;height:auto;display:block}
     .inline-img .img-caption{margin-top:14px}
+
+    /* AI note placed inside the image */
+    .img-frame{position:relative;width:100%;overflow:hidden}
+    .ai-badge{
+      position:absolute;right:8px;bottom:8px;
+      font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;font-weight:400;
+      color:#fff;background:rgba(0,0,0,.6);
+      padding:5px 9px;
+    }
 
     blockquote{
       font-family:'Big Shoulders Display',sans-serif;font-weight:700;
@@ -208,6 +219,7 @@
     </div>
   </div>
 
+  <!-- Full masterplan – no cropping, whole image shown -->
   <div class="hero-img"><img src="Masterplan_Schönforst.jpg" alt="Masterplan of Centre Schönforst neighbourhood centre"></div>
 </section>
 
@@ -279,7 +291,10 @@
   </div>
 
   <div class="inline-img">
-    <img src="Detail.jpg" alt="Detail view of the adventure trail (Abenteuerweg) designed for the site">
+    <div class="img-frame">
+      <img src="Detail.jpg" alt="Detail view of the adventure trail (Abenteuerweg) designed for the site – created with the help of AI">
+      <span class="ai-badge">Created with AI</span>
+    </div>
     <div class="img-caption">Detail of the Abenteuerweg — the adventure trail woven through the activity areas.</div>
   </div>
 

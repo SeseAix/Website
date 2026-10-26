@@ -70,9 +70,18 @@
     .meta-value{font-size:.95rem;font-weight:300;color:rgba(255,255,255,.85)}
 
     .hero-img{
+      position:relative;
       margin-top:64px;width:100%;aspect-ratio:16/9;
       overflow:hidden;background:#0a0a0a;
       filter:grayscale(0.1) contrast(1.05);
+    }
+
+    /* AI note placed inside the image */
+    .ai-badge{
+      position:absolute;right:12px;bottom:12px;
+      font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;font-weight:400;
+      color:#fff;background:rgba(0,0,0,.6);
+      padding:5px 9px;
     }
 
     /* ── BODY SECTIONS ── */
@@ -125,6 +134,7 @@
     .full-bleed .img-caption{
       max-width:760px;margin:14px auto 0;padding:0 48px;
     }
+    .full-bleed .ai-badge{right:16px;bottom:16px}
 
     /* Smaller in-column images — sit inside the text width, not full width */
     .inline-img{
@@ -208,8 +218,10 @@
     </div>
   </div>
 
-  <div class="hero-img"><img src="A structure that sho(31).jpg" alt="Generative terrain study, ridge contour lines and growth pattern simulation"></div>
-  <div class="img-caption">Created with AI.</div>
+  <div class="hero-img">
+    <img src="A structure that sho(31).jpg" alt="Generative terrain study, ridge contour lines and growth pattern simulation – created with AI">
+    <span class="ai-badge">Created with AI</span>
+  </div>
 </section>
 
 <!-- ── BODY ── -->
@@ -339,8 +351,8 @@
   </div>
 
   <div class="full-bleed">
-    <img src="Layout_selina_alessio_paulin.jpg" alt="Alternative layout study, generative snow architecture, Axamer Lizum">
-    <div class="img-caption">Created with AI.</div>
+    <img src="Layout_selina_alessio_paulin.jpg" alt="Alternative layout study, generative snow architecture, Axamer Lizum – created with AI">
+    <span class="ai-badge">Created with AI</span>
   </div>
 </div>
 

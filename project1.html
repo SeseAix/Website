@@ -132,13 +132,19 @@
     }
     .plakat-page img{width:100%;height:auto;display:block}
 
-    /* View placeholder */
-    .view-placeholder{
-      width:100%;margin:48px 0;
-      border:1px dashed rgba(255,255,255,.2);
-      display:flex;align-items:center;justify-content:center;
-      padding:80px 24px;
-      color:rgba(255,255,255,.25);font-size:.8rem;letter-spacing:.12em;text-align:center;
+    /* Postcard view: small image, AI note in the image + caption below */
+    .postcard{
+      width:100%;max-width:340px;margin:48px 0;
+    }
+    .postcard-frame{
+      position:relative;width:100%;overflow:hidden;background:#0a0a0a;
+    }
+    .postcard-frame img{width:100%;height:auto;display:block}
+    .ai-badge{
+      position:absolute;right:8px;bottom:8px;
+      font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;font-weight:400;
+      color:#fff;background:rgba(0,0,0,.6);
+      padding:5px 9px;
     }
 
     footer{border-top:1px solid rgba(255,255,255,.12);padding:14vh 48px 10vh;text-align:center}
@@ -270,7 +276,7 @@
 
   <!-- Two smaller sections first -->
   <div class="inline-img">
-    <img src="Schnitt Grün 1_250.jpg" alt="Green corridor section 1:250">
+    <img src="Schnitt Grün 1_250.jpg" alt="Green corridor section 1:250">
     <div class="img-caption">Green corridor section 1:250 — layered tree planting, active ground floor, public landscape axis.</div>
   </div>
 
@@ -285,14 +291,18 @@
     <div class="img-caption">Long section 1:1000 — the full east–west profile across the campus, from residential edge to CHEMPARK boundary.</div>
   </div>
 
-  <!-- ── VIEW PLACEHOLDER ── -->
+  <!-- ── POSTCARD VIEW ── -->
   <div class="body-section">
     <div class="section-label">Ansicht</div>
-    <h2 class="section-heading">Street-Level View</h2>
+    <h2 class="section-heading">Postcard View</h2>
   </div>
 
-  <div class="view-placeholder">
-   <img src="Grüße aus.jpg" alt="Long section 1:1000 through entire campus">
+  <div class="postcard">
+    <div class="postcard-frame">
+      <img src="Grüße aus.jpg" alt="Postcard view of the campus – created with the help of AI">
+      <span class="ai-badge">Created with AI</span>
+    </div>
+    <div class="img-caption">Postcard view — created with the help of AI.</div>
   </div>
 
   <!-- ── FULL ANALYSIS BOARDS ── -->
