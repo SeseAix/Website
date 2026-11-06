@@ -24,7 +24,7 @@
       font-size:.85rem;letter-spacing:.28em;text-transform:uppercase;
       color:rgba(255,255,255,.8);pointer-events:none
     }
-    
+
     .hero-title{
       position:absolute;
       top:50%;left:50%;
@@ -33,14 +33,14 @@
       pointer-events:none;user-select:none;
       width:100%
     }
-    
+
     .hero-title h1{
       font-family:'Big Shoulders Display',sans-serif;font-weight:800;
       font-size:clamp(5rem,15vw,12rem);
       letter-spacing:.05em;
       line-height:1;
       text-transform:uppercase;
-      color: #ffffff;
+      color:#ffffff;
     }
 
     .scroll-hint{
@@ -72,18 +72,18 @@
     .content-section {
       position:relative;
       display:flex;
-      flex-direction: column;
+      flex-direction:column;
       align-items:center;
       justify-content:center;
       background:#000;
       z-index:2;
-      padding: 100px 48px;
+      padding:100px 48px;
     }
     .content-container{
-      max-width: 1100px;
-      width: 100%;
+      max-width:1100px;
+      width:100%;
     }
-    
+
     .section-title {
       font-family:'Big Shoulders Display',sans-serif;
       font-weight:800;
@@ -91,146 +91,146 @@
       letter-spacing:.06em;
       text-transform:uppercase;
       color:#fff;
-      margin-bottom: 3rem;
+      margin-bottom:3rem;
     }
 
     /* ABOUT & CONTACT GRID */
     .about-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 48px;
-      text-align: left;
-      border-top: 1px solid rgba(255,255,255,0.15);
-      padding-top: 3rem;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:48px;
+      text-align:left;
+      border-top:1px solid rgba(255,255,255,0.15);
+      padding-top:3rem;
     }
 
     .grid-col h3 {
-      font-family: 'Big Shoulders Display', sans-serif;
-      font-size: 1.8rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-      color: #fff;
+      font-family:'Big Shoulders Display',sans-serif;
+      font-size:1.8rem;
+      font-weight:600;
+      letter-spacing:0.05em;
+      text-transform:uppercase;
+      margin-bottom:1rem;
+      color:#fff;
     }
 
     .grid-col p {
-      font-weight: 300;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      color: rgba(255,255,255,0.75);
-      margin-bottom: 1.5rem;
+      font-weight:300;
+      font-size:0.95rem;
+      line-height:1.6;
+      color:rgba(255,255,255,0.75);
+      margin-bottom:1.5rem;
     }
 
-    /* Portrait column — same visual weight as Awards / Beyond Architecture text columns */
+    /* Portrait column */
     .grid-col-portrait {
-      display: flex;
-      align-items: flex-start;
+      display:flex;
+      align-items:flex-start;
     }
     .portrait-thumb {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      object-position: center 18%;
-      filter: grayscale(1) contrast(1.05);
-      border: 1px solid rgba(255,255,255,0.18);
-      display: block;
+      width:100%;
+      aspect-ratio:3 / 4;
+      object-fit:cover;
+      object-position:center 18%;
+      filter:grayscale(1) contrast(1.05);
+      border:1px solid rgba(255,255,255,0.18);
+      display:block;
     }
 
     .skill-list {
-      list-style: none;
+      list-style:none;
     }
     .skill-list li {
-      font-size: 0.9rem;
-      font-weight: 300;
-      color: rgba(255,255,255,0.7);
-      margin-bottom: 0.8rem;
-      line-height: 1.4;
-      letter-spacing: 0.05em;
+      font-size:0.9rem;
+      font-weight:300;
+      color:rgba(255,255,255,0.7);
+      margin-bottom:0.8rem;
+      line-height:1.4;
+      letter-spacing:0.05em;
     }
     .skill-list li strong {
-      color: #fff;
-      font-weight: 400;
+      color:#fff;
+      font-weight:400;
     }
 
     /* PROJECTS & BLOG GRID */
     .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 40px;
-      width: 100%;
-      margin-top: 2rem;
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+      gap:40px;
+      width:100%;
+      margin-top:2rem;
     }
 
     .project-card {
-      text-decoration: none;
-      color: #fff;
-      display: block;
+      text-decoration:none;
+      color:#fff;
+      display:block;
     }
 
     .project-image {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      background: #111; 
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: transform 0.5s ease, border-color 0.5s ease;
+      width:100%;
+      aspect-ratio:4 / 3;
+      background:#111;
+      border:1px solid rgba(255,255,255,0.1);
+      transition:transform 0.5s ease,border-color 0.5s ease;
     }
 
     .project-card:hover .project-image {
-      transform: translateY(-8px);
-      border-color: rgba(255,255,255,0.5);
+      transform:translateY(-8px);
+      border-color:rgba(255,255,255,0.5);
     }
 
     /* Für Blog-Karten ohne Bild */
     .blog-card {
-      padding: 2rem;
-      background: #0a0a0a;
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: transform 0.5s ease, border-color 0.5s ease;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      padding:2rem;
+      background:#0a0a0a;
+      border:1px solid rgba(255,255,255,0.1);
+      transition:transform 0.5s ease,border-color 0.5s ease;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
     }
-    
+
     .project-card:hover .blog-card {
-      transform: translateY(-8px);
-      border-color: rgba(255,255,255,0.5);
+      transform:translateY(-8px);
+      border-color:rgba(255,255,255,0.5);
     }
 
     .project-info {
-      padding-top: 1.2rem;
-      transition: opacity 0.3s ease;
+      padding-top:1.2rem;
+      transition:opacity 0.3s ease;
     }
 
     .project-info h4 {
-      font-family: 'Big Shoulders Display', sans-serif;
-      font-size: 1.8rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      margin-bottom: 0.3rem;
-      color: #fff;
+      font-family:'Big Shoulders Display',sans-serif;
+      font-size:1.8rem;
+      letter-spacing:0.05em;
+      text-transform:uppercase;
+      margin-bottom:0.3rem;
+      color:#fff;
     }
 
     .project-info p {
-      font-family: 'Barlow', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 300;
-      color: rgba(255,255,255,0.5);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      font-family:'Barlow',sans-serif;
+      font-size:0.85rem;
+      font-weight:300;
+      color:rgba(255,255,255,0.5);
+      letter-spacing:0.1em;
+      text-transform:uppercase;
     }
 
     /* Links in Contact */
     .contact-link {
-      color: #fff;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(255,255,255,0.3);
-      padding-bottom: 2px;
-      transition: border-color 0.3s ease;
+      color:#fff;
+      text-decoration:none;
+      border-bottom:1px solid rgba(255,255,255,0.3);
+      padding-bottom:2px;
+      transition:border-color 0.3s ease;
     }
     .contact-link:hover {
-      border-color: #fff;
+      border-color:#fff;
     }
 
     /* SITE FOOTER (Impressum) */
@@ -251,6 +251,32 @@
       .site-footer{padding:28px 24px}
     }
 
+    /* IMPRESSUM OVERLAY */
+    .modal{
+      position:fixed;inset:0;z-index:100;
+      background:rgba(0,0,0,.92);
+      display:flex;align-items:center;justify-content:center;
+      padding:24px;overflow-y:auto;
+      opacity:0;pointer-events:none;transition:opacity .4s ease;
+    }
+    .modal.open{opacity:1;pointer-events:auto}
+    .modal-box{
+      position:relative;max-width:700px;width:100%;
+      border:1px solid rgba(255,255,255,.15);background:#000;
+      padding:56px 48px;margin:auto;
+    }
+    .modal-box h3{
+      font-family:'Big Shoulders Display',sans-serif;font-weight:600;
+      font-size:1.5rem;letter-spacing:.05em;text-transform:uppercase;
+      margin:1.5rem 0 .5rem;
+    }
+    .modal-box p{font-weight:300;font-size:.95rem;line-height:1.6;color:rgba(255,255,255,.75)}
+    .modal-close{
+      position:absolute;top:16px;right:20px;background:none;border:none;
+      color:#fff;font-size:1.2rem;cursor:pointer;opacity:.6;transition:opacity .3s;
+    }
+    .modal-close:hover{opacity:1}
+    @media(max-width:680px){.modal-box{padding:48px 24px}}
   </style>
 </head>
 <body>
@@ -272,7 +298,7 @@
 <section id="about" class="content-section" style="min-height: 100vh;">
   <div class="content-container fade-section">
     <h2 class="section-title">About Me</h2>
-    
+
     <div class="about-grid">
       <div class="grid-col">
         <h3>Background</h3>
@@ -287,7 +313,7 @@
       </div>
 
       <div class="grid-col">
-        <h3>Tools & Skills</h3>
+        <h3>Tools &amp; Skills</h3>
         <ul class="skill-list">
           <li><strong>CAD / 3D:</strong> ArchiCAD · Rhino</li>
           <li><strong>Visualization:</strong> Blender</li>
@@ -323,15 +349,13 @@
 <section id="projects" class="content-section">
   <div class="content-container fade-section">
     <h2 class="section-title">Selected Works</h2>
-    
+
     <div class="projects-grid">
-      
+
       <a href="project1.html" class="project-card">
         <div class="project-image" style="background-image: url('w940_h528_x470_y264_559434a4b8972d7f.jpg'); background-size: cover; background-position: center;"></div>
         <div class="project-info">
-          <h4>2nd Place - Urban Design Competition Dormagen
-            
-          </h4>
+          <h4>2nd Place - Urban Design Competition Dormagen</h4>
           <p>Urban Design / 2026</p>
         </div>
       </a>
@@ -352,15 +376,14 @@
         </div>
       </a>
 
-   
     </div>
   </div>
 </section>
 
 <section id="blog" class="content-section">
   <div class="content-container fade-section">
-    <h2 class="section-title">Blog & Insights</h2>
-    
+    <h2 class="section-title">Blog &amp; Insights</h2>
+
     <div class="projects-grid">
       <a href="blog1.html" class="project-card">
         <div class="blog-card">
@@ -373,13 +396,12 @@
           </div>
         </div>
       </a>
-     
 
       <a href="blog2.html" class="project-card">
         <div class="blog-card">
           <div class="project-info" style="padding-top: 0;">
             <h4>Aachen Cathedral</h4>
-            <p style="margin-top: 0.5rem; color: rgba(255,255,255,0.8); text-transform: none; letter-spacing: 0;">A look into the history of the Aachen Cathedral </p>
+            <p style="margin-top: 0.5rem; color: rgba(255,255,255,0.8); text-transform: none; letter-spacing: 0;">A look into the history of the Aachen Cathedral</p>
           </div>
           <div class="project-info">
             <p>Article / July 2025</p>
@@ -405,14 +427,12 @@
 <section id="contact" class="content-section" style="padding-bottom: 150px;">
   <div class="content-container fade-section">
     <h2 class="section-title">Contact</h2>
-    
+
     <div class="about-grid" style="border-top: none; padding-top: 0;">
       <div class="grid-col">
         <h3>Let's Collaborate</h3>
         <p>I am always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Whether you have a specific inquiry or just want to say hello, feel free to reach out.</p>
-        <p style="margin-top: 2rem;">
-          
-        </p>
+        <p style="margin-top: 2rem;"></p>
       </div>
 
       <div class="grid-col">
@@ -420,9 +440,8 @@
         <ul class="skill-list">
           <li><a href="https://www.linkedin.com/in/selina-janssen-9a5b8026b" class="contact-link" target="_blank" rel="noopener">LinkedIn ↗</a></li>
           <li><a href="#" class="contact-link">Instagram ↗</a></li>
-          
         </ul>
-        
+
         <h3 style="margin-top: 3rem;">Location</h3>
         <p>
           Innsbruck, Austria<br>
@@ -435,8 +454,25 @@
 
 <footer class="site-footer">
   <span>© Selina Janssen</span>
-  <a href="impressum.html">Impressum</a>
+  <a href="#impressum" id="openImpressum">Impressum</a>
 </footer>
+
+<!-- IMPRESSUM OVERLAY -->
+<div class="modal" id="impressumModal" aria-hidden="true">
+  <div class="modal-box">
+    <button class="modal-close" id="closeImpressum" aria-label="Schließen">✕</button>
+    <h2 class="section-title" style="font-size:clamp(2.5rem,6vw,4.5rem);margin-bottom:2rem;">Impressum</h2>
+
+    <h3>Angaben gemäß § 5 DDG</h3>
+    <p>Selina Janssen<br>Straße Hausnummer<br>PLZ Ort<br>Deutschland</p>
+
+    <h3>Kontakt</h3>
+    <p>E-Mail: deine@mail.de</p>
+
+    <h3>Haftung für Inhalte</h3>
+    <p>Als Diensteanbieterin bin ich für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.</p>
+  </div>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
@@ -448,7 +484,7 @@
   renderer.setSize(W(), H());
   renderer.setClearColor(0x000000, 1);
   const scene  = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x000000, 0.025); 
+  scene.fog = new THREE.FogExp2(0x000000, 0.025);
   const camera = new THREE.PerspectiveCamera(62, W()/H(), 0.1, 500);
   camera.position.set(0, 2.5, 18);
   camera.lookAt(0, 4.5, 0);
@@ -474,7 +510,7 @@
     return v/s;
   }
 
-  const SEG_X = 300; const SEG_Z = 300; const TW = 40; const TD = 40;   
+  const SEG_X = 300; const SEG_Z = 300; const TW = 40; const TD = 40;
   const geo = new THREE.PlaneGeometry(TW, TD, SEG_X, SEG_Z);
   geo.rotateX(-Math.PI / 2);
   const positions = geo.attributes.position;
@@ -503,21 +539,21 @@
   const cols = new Float32Array(count * 3);
   for(let k=0;k<count;k++){
     const t = (positions.getY(k) - minH) / hRange;
-    const v = 0.2 + Math.pow(t, 1.0) * 0.8; 
+    const v = 0.2 + Math.pow(t, 1.0) * 0.8;
     cols[k*3]=v; cols[k*3+1]=v; cols[k*3+2]=v;
   }
   geo.setAttribute('color', new THREE.BufferAttribute(cols, 3));
 
   const solidMat = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.FrontSide });
   const solidMesh = new THREE.Mesh(geo, solidMat);
-  solidMesh.position.y = -0.05; 
+  solidMesh.position.y = -0.05;
 
-  const basePointSize = 0.035; 
+  const basePointSize = 0.035;
   const pointsMat = new THREE.PointsMaterial({ size: basePointSize, vertexColors: true, transparent: true, opacity: 0.9, sizeAttenuation: true });
   const pointsMesh = new THREE.Points(geo, pointsMat);
-  
+
   const group = new THREE.Group();
-  group.add(solidMesh); group.add(pointsMesh); 
+  group.add(solidMesh); group.add(pointsMesh);
   group.position.set(0, -4.5, 0);
   scene.add(group);
 
@@ -537,7 +573,7 @@
     t += 0.003;
     const sway = Math.sin(t * 0.2) * 0.02;
     group.rotation.y = sway;
-    camera.position.z = 18 - scrollProg * 10; 
+    camera.position.z = 18 - scrollProg * 10;
     camera.position.y = 2.5 + Math.sin(t*0.2)*0.1 - (scrollProg * 1.5);
     camera.lookAt(0, 4.5, 0);
     pointsMat.opacity = masterOpacity;
@@ -559,6 +595,18 @@
     en.forEach(e=>{if(e.isIntersecting) e.target.classList.add('visible');});
   },{threshold:.15});
   document.querySelectorAll('.fade-section').forEach(el => observer.observe(el));
+})();
+
+/* IMPRESSUM OVERLAY */
+(function(){
+  const modal = document.getElementById('impressumModal');
+  const open  = e => { e.preventDefault(); modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); };
+  const close = () => { modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); };
+
+  document.getElementById('openImpressum').addEventListener('click', open);
+  document.getElementById('closeImpressum').addEventListener('click', close);
+  modal.addEventListener('click', e => { if(e.target === modal) close(); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') close(); });
 })();
 </script>
 </body>
